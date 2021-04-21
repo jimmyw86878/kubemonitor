@@ -3,6 +3,7 @@ package test
 import (
 	"fmt"
 	"io/ioutil"
+	"kubemonitor/internal/logger"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -21,6 +22,7 @@ var (
 
 //InitTest for testing
 func InitTest() {
+	logger.NewLogger()
 	currentPath := GetPwd()
 	ConfigPath = filepath.Join(currentPath, "/kubemonitor/test/config.json")
 	NoCachePath = filepath.Join(currentPath, "/kubemonitor/test/test_no_cache") + "/"
