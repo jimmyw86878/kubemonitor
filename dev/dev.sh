@@ -45,7 +45,7 @@ function stop_dev() {
 
 function run_test() {
     echo "run test"
-    go test -p 1 --cover -coverprofile=coverage.out -v kubemonitor/internal{/kubeutil,/models,/util,/route/v1} -count=1
+    go test -p 1 --cover -coverprofile=coverage.out -v kubemonitor/internal{/kubeutil,/models,/util} -count=1
     go tool cover -html=coverage.out
 }
 
