@@ -1,0 +1,14 @@
+{
+    "watch_target":[
+        {
+            "namespace": "default",
+            "monitor_target": "dep-a",
+            "restart_list": ["dep-b"]
+        },
+        {
+            "namespace": "test",
+            "monitor_target": "dep-c",
+            "restart_list": ["dep-d"]
+        }
+    ]
+}

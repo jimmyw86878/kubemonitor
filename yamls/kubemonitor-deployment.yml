@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubemonitor-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kubemonitor
+    spec:
+      containers:
+        - name: kubemonitor
+          image: kubemonitor:latest
+          imagePullPolicy:  IfNotPresent
+          env:
+          - name: configPath
+            value: "/kubemonitor/config.json"
+          - name: cacheFilePath
+            value: "/kubemonitor/cache/"
+          - name: checkPeriodSec
+            value: "30"
+          volumeMounts:
+            - mountPath: /.kube/config
+              name: kubeconfig
+            - mountPath: /kubemonitor/config.json
+              name: config
+            - mountPath: /kubemonitor/cache
+              name: cache
+            - mountPath: /etc/localtime
+              name: time
+          securityContext:
+            privileged: true
+      volumes:
+      - name: kubeconfig
+        hostPath:
+          path: /home/config
+          type: File
+      - name: config
+        hostPath:
+          path: /home/kubemonitor/config.json
+          type: File
+      - name: cache
+        hostPath:
+          path: /home/kubemonitor/cache
+          type: Directory
+      - name: time
+        hostPath:
+          path: /etc/localtime
+          type: File
+      serviceAccountName:
+        kubemonitoruser
+      nodeSelector:
+        node-role.kubernetes.io/master: "true"
+
+  selector:
+    matchLabels:
+      app: kubemonitor

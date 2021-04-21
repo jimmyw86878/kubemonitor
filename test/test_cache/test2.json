@@ -1,0 +1,7 @@
+{
+    "name": "test-pod2",
+    "restarts": "4",
+    "restart_list": ["test-dep1", "test-dep2"],
+    "namespace": "test-ns2",
+    "deployment_name": "test-dep2"
+}
