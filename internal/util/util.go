@@ -3,10 +3,12 @@ package util
 import (
 	"fmt"
 	"io/ioutil"
+	"math"
 	"os"
 	"os/exec"
 	"strconv"
 	"strings"
+	"time"
 )
 
 //LoadStrEnv load string environment value
@@ -54,6 +56,20 @@ func CheckCacheExist(path string) bool {
 				return true
 			}
 		}
+	}
+	return false
+}
+
+//CompareCurrentTime is to parse time string to timestamp and compare it, return true if
+//input time and current time are closed in threshold value
+func CompareCurrentTime(input string, threshold float64) bool {
+	layout := "2 Jan 2006 15:04:05 MST"
+	t, err := time.Parse(layout, input)
+	if err != nil {
+		return false
+	}
+	if math.Abs(float64(time.Now().Unix()-t.Unix())) < threshold {
+		return true
 	}
 	return false
 }

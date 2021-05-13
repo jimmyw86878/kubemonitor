@@ -16,8 +16,9 @@ func TestGetCurrentAllPodStatus(t *testing.T) {
 	assert.NoError(t, err)
 	store := &Store{
 		CachePath: test.NoCachePath,
+		Config:    config,
 	}
-	err = store.GetCurrentAllPodStatus(config.WatchList)
+	err = store.GetCurrentAllPodStatus()
 	assert.NoError(t, err)
 	assert.NotEqual(t, 0, len(store.List))
 	for _, pod := range store.List {
@@ -32,8 +33,9 @@ func TestCheckAndUpdatePodStat(t *testing.T) {
 	assert.NoError(t, err)
 	store := &Store{
 		CachePath: test.NoCachePath,
+		Config:    config,
 	}
-	err = store.GetCurrentAllPodStatus(config.WatchList)
+	err = store.GetCurrentAllPodStatus()
 	assert.NoError(t, err)
 	assert.NotEqual(t, 0, len(store.List))
 	//simulate some pod restart by changing their pod name
@@ -57,6 +59,24 @@ func TestCheckAndUpdatePodStat(t *testing.T) {
 	}
 }
 
+func TestInitCheckTargetPod(t *testing.T) {
+	test.InitTest()
+	config, err := models.ReadConfig(test.ConfigPath)
+	assert.NoError(t, err)
+	store := &Store{
+		CachePath: test.NoCachePath,
+		Config:    config,
+	}
+	//simulate some pod restart by changing their pod name
+	RestartTargetDeployment("test", []string{"dep-c"})
+	for {
+		if err := store.InitCheckTargetPod(); err == nil {
+			break
+		}
+		time.Sleep(1 * time.Second)
+	}
+}
+
 func TestInitStore(t *testing.T) {
 	test.InitTest()
 	os.Setenv("configPath", test.ConfigPath)
@@ -77,8 +97,9 @@ func TestCheckAndUpdatePodRestart(t *testing.T) {
 	assert.NoError(t, err)
 	store := &Store{
 		CachePath: test.NoCachePath,
+		Config:    config,
 	}
-	err = store.GetCurrentAllPodStatus(config.WatchList)
+	err = store.GetCurrentAllPodStatus()
 	assert.NoError(t, err)
 	assert.NotEqual(t, 0, len(store.List))
 	//simulate some pod restart number increases

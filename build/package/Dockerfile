@@ -21,7 +21,6 @@ RUN apk add --no-cache util-linux
 RUN wget -O /kubectl https://storage.googleapis.com/kubernetes-release/release/v1.20.0/bin/linux/amd64/kubectl && \
     chmod +x /kubectl && \
     cp /kubectl /usr/local/bin/
-RUN mkdir -p /kubemonitor/cache
 
 
 ENTRYPOINT [ "/kubemonitor/kubemonitor" ]

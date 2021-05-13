@@ -17,6 +17,7 @@ type TargetDeployList struct {
 	Namespace     string   `json:"namespace"`
 	MonitorTarget string   `json:"monitor_target"`
 	RestartList   []string `json:"restart_list"`
+	Checked       bool
 }
 
 //ReadConfig read config json to get target

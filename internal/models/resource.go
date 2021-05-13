@@ -2,9 +2,7 @@ package models
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
-	log "kubemonitor/internal/logger"
 	"strings"
 )
 
@@ -68,10 +66,10 @@ func Writeintofile(pod *Pod, dest string) error {
 func (p *Pod) UpdatePodStatus(name, restarts, filepath string) error {
 	p.Name = name
 	p.Restarts = restarts
-	err := Writeintofile(p, filepath+fmt.Sprintf("%s#%s.json", p.NameSpace, p.DeploymentName))
-	if err != nil {
-		log.Error.Printf("Can not write file for %s, err: %s\n", p.NameSpace+"#"+p.DeploymentName, err.Error())
-		return err
-	}
+	// err := Writeintofile(p, filepath+fmt.Sprintf("%s#%s.json", p.NameSpace, p.DeploymentName))
+	// if err != nil {
+	// 	log.Error.Printf("Can not write file for %s, err: %s\n", p.NameSpace+"#"+p.DeploymentName, err.Error())
+	// 	return err
+	// }
 	return nil
 }
