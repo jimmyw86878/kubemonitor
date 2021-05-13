@@ -16,8 +16,6 @@ spec:
           env:
           - name: configPath
             value: "/kubemonitor/config.json"
-          - name: cacheFilePath
-            value: "/kubemonitor/cache/"
           - name: checkPeriodSec
             value: "30"
           volumeMounts:
@@ -25,8 +23,6 @@ spec:
               name: kubeconfig
             - mountPath: /kubemonitor/config.json
               name: config
-            - mountPath: /kubemonitor/cache
-              name: cache
             - mountPath: /etc/localtime
               name: time
           securityContext:
@@ -40,10 +36,6 @@ spec:
         hostPath:
           path: /home/kubemonitor/config.json
           type: File
-      - name: cache
-        hostPath:
-          path: /home/kubemonitor/cache
-          type: Directory
       - name: time
         hostPath:
           path: /etc/localtime

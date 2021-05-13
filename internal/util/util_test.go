@@ -2,6 +2,7 @@ package util
 
 import (
 	"kubemonitor/test"
+	"math"
 	"os"
 	"testing"
 
@@ -38,4 +39,11 @@ func TestCheckCacheExist(t *testing.T) {
 	assert.Equal(t, true, res)
 	res = CheckCacheExist("../../dev/not_exist")
 	assert.Equal(t, false, res)
+}
+
+func TestParseTime(t *testing.T) {
+	res := CompareCurrentTime("26 Apr 2021 19:56:15 CST", 10.0)
+	assert.Equal(t, false, res)
+	res = CompareCurrentTime("26 Apr 2021 19:56:15 CST", math.MaxFloat64)
+	assert.Equal(t, true, res)
 }

@@ -28,12 +28,11 @@ make name=your_image_name tag=your_image_tag all
 There three things that need to preapre first.
 
 1. /home/kubemonitor
-2. /home/kubemonitor/cache
-3. /home/kubemonitor/config.json
+2. /home/kubemonitor/config.json
 
-For 1. and 2., just make sure these folders exist on host.
+For 1., just make sure the folder exists on host.
 
-For 3., there is an example `config.json` in `test` folder:
+For 2., there is an example `config.json` in `test` folder:
 ```
 {
     "watch_target":[
