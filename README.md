@@ -8,7 +8,7 @@ In some scenarios, we may need to synchronize the lifecycle of some pods since t
 * Docker
 * Make
 
-For running go-test, you need to install:
+For running go-test, you need to install :
 
 * Docker
 * Minikube ([install guide](https://minikube.sigs.k8s.io/docs/start/))
